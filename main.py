@@ -1,4 +1,8 @@
+from Tests.test_all import run_all_tests
+
+
 def main () :
-   pass
+   run_all_tests()
+
 
 main()
