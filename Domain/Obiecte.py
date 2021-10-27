@@ -58,6 +58,10 @@ def to_string(obiect):
         get_locatie(obiect)
     )
    '''
-   return f"Id: {get_id(obiect)}; nume: {get_nume(obiect)}; " \
-          f"descriere: {get_descriere(obiect)}; pret: {get_pret(obiect)}; " \
-          f"locatie : {get_locatie(obiect)}."
+   return  "Id: {}, Nume: {}, Descriere: {}, Pret: {}, Locatie: {}".format(
+        obiect[0],
+        obiect[1],
+        obiect[2],
+        obiect[3],
+        obiect[4]
+    )
