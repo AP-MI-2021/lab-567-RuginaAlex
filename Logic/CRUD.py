@@ -38,6 +38,7 @@ def modificare_obiect (id, nume, descriere, pret, locatie, lista):
     :return:
     '''
 
+
     lista_noua = []
     for obiect in lista:
         if get_id(obiect) == id:
@@ -47,6 +48,7 @@ def modificare_obiect (id, nume, descriere, pret, locatie, lista):
             lista_noua.append(obiect)
 
     return lista_noua
+
 
 
 def getBYId (id,lista):
