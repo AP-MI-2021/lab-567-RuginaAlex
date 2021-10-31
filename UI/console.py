@@ -1,6 +1,6 @@
 from Domain.Obiecte import to_string
 from Logic.CRUD import adauga_obiect, stergere_obiect, modificare_obiect
-from Logic.Fonctionalitati import change_location
+from Logic.Fonctionalitati import change_location, max_price
 
 
 def printmenu():
@@ -8,6 +8,7 @@ def printmenu():
     print("2. Sterge obiect")
     print("3. Modifica obiect")
     print("4. Mutarea tuturor obiectelor intr-o locatie")
+    print("5. Determinarea celui mai mare preț pentru fiecare locație")
     print("a. Afiseaza toate obiectele")
     print("x. Iesire")
 
@@ -49,9 +50,20 @@ def uiChangeLocation(lista):
     return change_location(locatie_veche,locatie_noua,lista)
 
 
+def uiMaxPrice(lista):
+    rezultat = max_price(lista)
+    for locatie in rezultat:
+        print("Locatia {} are pretul maxim {}".format(locatie, rezultat[locatie]))
+
+
+
 def showAll(lista):
     for obiect in lista:
         print(to_string(obiect))
+    if lista == []:
+        print ("Dictionarul este gol!")
+
+
 
 
 def runMenu(lista):
@@ -69,6 +81,10 @@ def runMenu(lista):
 
         elif optiune == "4":
             lista=uiChangeLocation(lista)
+
+        elif optiune == "5":
+            uiMaxPrice(lista)
+
 
 
         elif optiune == "a":
