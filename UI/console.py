@@ -11,12 +11,16 @@ def printmenu():
 
 
 def uiAdaugaObiect(lista):
-    id=input ("Dati id-ul: ")
-    nume = input ("Dati numele: ")
-    descriere = input ("Dati descriere: ")
-    pret = float( input ("Dati pret: "))
-    locatie = input ("Dati locatie: ")
-    return adauga_obiect(id , nume, descriere, pret, locatie, lista)
+    try:
+        id=input ("Dati id-ul: ")
+        nume = input ("Dati numele: ")
+        descriere = input ("Dati descriere: ")
+        pret = float( input ("Dati pret: "))
+        locatie = input ("Dati locatie: ")
+        return adauga_obiect(id , nume, descriere, pret, locatie, lista)
+    except ValueError as ve:
+        print("Eroare: {}".format(ve))
+        return lista
 
 
 def uiStergereObiect(lista):
@@ -25,12 +29,19 @@ def uiStergereObiect(lista):
 
 
 def uiModificaObiect(lista):
-    id = input("Dati id-ul prajiturii de modificat : ")
-    nume = input("Dati noul nume: ")
-    descriere = input("Dati noua descriere: ")
-    pret = float (input("Dati noul pret: "))
-    locatie = input("Dati noua locatie: ")
-    return modificare_obiect(id, nume, descriere, pret, locatie,lista)
+    try:
+        id = input("Dati id-ul prajiturii de modificat : ")
+        nume = input("Dati noul nume: ")
+        descriere = input("Dati noua descriere: ")
+        pret = float (input("Dati noul pret: "))
+        locatie = input("Dati noua locatie: ")
+        return modificare_obiect(id, nume, descriere, pret, locatie,lista)
+    except ValueError as ve:
+        print("Eroare: {}".format(ve))
+        return lista
+
+
+
 
 
 def showAll(lista):

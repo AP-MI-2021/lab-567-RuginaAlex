@@ -12,7 +12,8 @@ Adauga obiect intr-o lista
     :param lista: lista de obiecte
     :return: o lista continand atat elemente vechi, cat si noul obiect
     '''
-
+    if getBYId(id,lista) is not None:
+        raise ValueError("Id-ul exista deja!")
     obiect=creeaza_obiect(id, nume, descriere, pret, locatie)
     return lista + [obiect]
 
@@ -23,6 +24,8 @@ def stergere_obiect (id,lista):
     :param lista: lista de obiecte
     :return: o lista de obiecte fara elementul cu id-ul dat
     '''
+    if getBYId(id,lista) is None:
+        raise ValueError("Nu exista obiect cu acest ID!")
     return [obiect for obiect in lista if get_id(obiect) != id]
 
 
@@ -38,6 +41,8 @@ def modificare_obiect (id, nume, descriere, pret, locatie, lista):
     :return:
     '''
 
+    if getBYId(id,lista) is None:
+        raise ValueError("Nu exista obiect cu acest ID!")
 
     lista_noua = []
     for obiect in lista:

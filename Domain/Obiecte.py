@@ -8,7 +8,7 @@ def creeaza_obiect(id, nume, descriere, pret, locatie):
     :param locatie: string
     :return: Returneaza un dictionar ce retine un obiect.
     '''
-    '''
+
     
     return {
         'id' : id,
@@ -18,50 +18,48 @@ def creeaza_obiect(id, nume, descriere, pret, locatie):
         'locatie' : locatie
 
     }
-    '''
-    obiect = [id, nume, descriere, pret, locatie]
-    return obiect
+
+
 def get_id(obiect):
     '''
     Ia id-ul obiectului
     :param obiect: dictionar de tip obiect
     :return: id-ul obiectului
     '''
-    #return obiect['id']
-    return obiect[0]
+
+    return obiect['id']
+
 
 def get_nume(obiect):
-    #return obiect['nume']
-    return obiect[1]
+
+    return obiect['nume']
+
 def get_descriere(obiect):
-    #return obiect['descriere']
-    return obiect[2]
+
+    return obiect['descriere']
+
 def get_pret(obiect):
-    #return obiect['pret']
-    return obiect[3]
+
+    return obiect['pret']
+
 
 def get_locatie(obiect):
-    #return obiect ['locatie']
-    return obiect[4]
+
+    return obiect ['locatie']
+
 
 def to_string(obiect):
    '''
-
-   :param obiect:
-   :return:
-
-    return "id: {}, nume: {}, descriere: {}, pret: {}, locatie: {}".format(
-        get_id(obiect),
-        get_nume(obiect),
-        get_descriere(obiect),
-        get_pret(obiect),
-        get_locatie(obiect)
-    )
+    Formeaza dictionarul
+   :param obiect: Obiectul dat de user.
+   :return: Returneaza dictionarul
    '''
-   return  "Id: {}, Nume: {}, Descriere: {}, Pret: {}, Locatie: {}".format(
-        obiect[0],
-        obiect[1],
-        obiect[2],
-        obiect[3],
-        obiect[4]
-    )
+
+   return "Id: {}, Nume: {}, Descriere: {}, Pret: {}, Locatie: {}".format(
+       get_id(obiect),
+       get_nume(obiect),
+       get_descriere(obiect),
+       get_pret(obiect),
+       get_locatie(obiect)
+   )
+
