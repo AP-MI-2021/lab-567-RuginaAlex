@@ -1,11 +1,13 @@
 from Domain.Obiecte import to_string
 from Logic.CRUD import adauga_obiect, stergere_obiect, modificare_obiect
+from Logic.Fonctionalitati import change_location
 
 
 def printmenu():
     print("1. Adauga obiect")
     print("2. Sterge obiect")
     print("3. Modifica obiect")
+    print("4. Mutarea tuturor obiectelor intr-o locatie")
     print("a. Afiseaza toate obiectele")
     print("x. Iesire")
 
@@ -41,7 +43,10 @@ def uiModificaObiect(lista):
         return lista
 
 
-
+def uiChangeLocation(lista):
+    locatie_noua = input("Dati locatia noua: ")
+    locatie_veche = input("Alegeti locatia obiectelor pe care vreti sa le mutati: ")
+    return change_location(locatie_veche,locatie_noua,lista)
 
 
 def showAll(lista):
@@ -61,6 +66,10 @@ def runMenu(lista):
 
         elif optiune == "3":
             lista=uiModificaObiect(lista)
+
+        elif optiune == "4":
+            lista=uiChangeLocation(lista)
+
 
         elif optiune == "a":
             showAll(lista)
