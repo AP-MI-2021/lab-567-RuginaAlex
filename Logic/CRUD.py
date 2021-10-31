@@ -14,6 +14,8 @@ Adauga obiect intr-o lista
     '''
     if getBYId(id,lista) is not None:
         raise ValueError("Id-ul exista deja!")
+    if len(locatie) != 4:
+        raise ValueError("Locatia nu contine exact 4 caractere!")
     obiect=creeaza_obiect(id, nume, descriere, pret, locatie)
     return lista + [obiect]
 

@@ -48,6 +48,7 @@ def get_locatie(obiect):
     return obiect ['locatie']
 
 
+
 def to_string(obiect):
    '''
     Formeaza dictionarul

@@ -20,6 +20,7 @@ def uiAdaugaObiect(lista):
         descriere = input ("Dati descriere: ")
         pret = float( input ("Dati pret: "))
         locatie = input ("Dati locatie: ")
+
         return adauga_obiect(id , nume, descriere, pret, locatie, lista)
     except ValueError as ve:
         print("Eroare: {}".format(ve))
