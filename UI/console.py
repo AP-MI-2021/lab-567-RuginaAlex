@@ -47,8 +47,7 @@ def uiModificaObiect(lista):
 
 def uiChangeLocation(lista):
     locatie_noua = input("Dati locatia noua: ")
-    locatie_veche = input("Alegeti locatia obiectelor pe care vreti sa le mutati: ")
-    return change_location(locatie_veche,locatie_noua,lista)
+    return change_location(locatie_noua,lista)
 
 
 def uiMaxPrice(lista):
@@ -70,18 +69,18 @@ def showAll(lista):
 def runMenu(lista):
     while True:
         printmenu()
-        optiune=input ("Dati optiunea: ")
+        optiune = input ("Dati optiunea: ")
         if optiune == "1":
-            lista=uiAdaugaObiect(lista)
+            lista = uiAdaugaObiect(lista)
 
         elif optiune == "2":
-            lista=uiStergereObiect(lista)
+            lista = uiStergereObiect(lista)
 
         elif optiune == "3":
-            lista=uiModificaObiect(lista)
+            lista = uiModificaObiect(lista)
 
         elif optiune == "4":
-            lista=uiChangeLocation(lista)
+            lista = uiChangeLocation(lista)
 
         elif optiune == "5":
             uiMaxPrice(lista)

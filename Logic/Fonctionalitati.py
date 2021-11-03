@@ -1,18 +1,16 @@
 from Domain.Obiecte import get_locatie, get_pret
 
 
-def change_location(locatie_veche,locatie_noua,lista):
+def change_location(locatie_noua,lista):
     '''
-    Mutarea obiectelor dintr-o locatie in alta
-    :param locatie_veche: Locatia actuala a obiectului
-    :param locatie_noua: Locatia in care va fi mutat obiectul
-    :param lista: lista de obiecte
-    :return: Lista actualizata din punct de vedere a locatiilor obiectelor
+    Mutarea tuturor obiectelor intr-o anumita locatie
+    :param locatie_noua: Locatia in care vor fi mutate obiectele
+    :param lista: Lista de obiecte
+    :return: Returneaza o lista cu obiectele mutate intr-o locatie precizata de user
     '''
-
 
     for obiect in lista:
-        if get_locatie(obiect) == locatie_veche:
+        if get_locatie(obiect) != locatie_noua:
             obiect["locatie"] = locatie_noua
 
     return lista
