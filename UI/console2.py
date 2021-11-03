@@ -20,14 +20,16 @@ def runMenu2(lista):
         comanda = input("Scrieti comenzile, despartite de ';': ").split(';')
         for i in range(len(comanda)):
             det = comanda[i].split(',')
-
             if det[0] == 'add':
                 try:
                     lista = adauga_obiect(det[1],det[2],det[3],det[4],det[5],lista)
                 except IndexError as ie:
                     print(f"Eroare: {ie}")
             elif det[0] == 'delete':
+                try:
                     lista = stergere_obiect(det[1],lista)
+                except ValueError as de:
+                    print(f"Eroare: {de}")
             elif det[0] == 'modificare':
                 try:
                     lista=modificare_obiect(det[1],det[2],det[3],det[4],det[5],lista)
