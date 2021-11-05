@@ -1,6 +1,7 @@
 from Domain.Obiecte import to_string
 from Logic.CRUD import adauga_obiect, stergere_obiect, modificare_obiect
 from Logic.Fonctionalitati import change_location, max_price
+from UI.console2 import runMenu2
 
 
 def printmenu():
@@ -10,6 +11,7 @@ def printmenu():
     print("4. Mutarea tuturor obiectelor intr-o locatie")
     print("5. Determinarea celui mai mare preț pentru fiecare locație")
     print("a. Afiseaza toate obiectele")
+    print("y. Command Line")
     print("x. Iesire")
 
 
@@ -85,6 +87,9 @@ def runMenu(lista):
         elif optiune == "5":
             uiMaxPrice(lista)
 
+
+        elif optiune == "y":
+            runMenu2(lista)
 
 
         elif optiune == "a":

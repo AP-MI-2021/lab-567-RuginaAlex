@@ -1,6 +1,4 @@
 from Logic.CRUD import adauga_obiect, stergere_obiect, modificare_obiect
-from UI.console import showAll
-
 
 
 def help ():
@@ -23,8 +21,9 @@ def runMenu2(lista):
             if det[0] == 'add':
                 try:
                     lista = adauga_obiect(det[1],det[2],det[3],det[4],det[5],lista)
-                except IndexError as ie:
+                except ValueError as ie:
                     print(f"Eroare: {ie}")
+
             elif det[0] == 'delete':
                 try:
                     lista = stergere_obiect(det[1],lista)
@@ -38,7 +37,7 @@ def runMenu2(lista):
                     return lista
 
             elif det[0] == 'showall':
-                showAll(lista)
+                print(lista)
             elif det[0] == 'stop':
                 stop = True
                 break
