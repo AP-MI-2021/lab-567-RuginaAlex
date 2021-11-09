@@ -15,11 +15,12 @@ def printmenu():
     print("8. Concatenarea unui string citit la toate descrierile obiectelor cu prețul mai mare decât o valoare citită")
     print("a. Afiseaza toate obiectele")
     print("u. Undo")
+    print("r. Redo")
     print("y. Command Line")
     print("x. Iesire")
 
 
-def uiAdaugaObiect(lista,undolist):
+def uiAdaugaObiect(lista,undolist,redolist):
     try:
         id=input ("Dati id-ul: ")
         nume = input ("Dati numele: ")
@@ -28,24 +29,26 @@ def uiAdaugaObiect(lista,undolist):
         locatie = input ("Dati locatie: ")
         rezultat = adauga_obiect(id , nume, descriere, pret, locatie, lista)
         undolist.append(lista)
+        redolist.clear()
         return rezultat
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return lista
 
 
-def uiStergereObiect(lista, undolist):
+def uiStergereObiect(lista, undolist,redolist):
     try:
         id = input("Dati id-ul prajiturii de sters: ")
         rezultat =  stergere_obiect(id, lista)
         undolist.append(lista)
+        redolist.clear()
         return rezultat
     except ValueError as ve:
         print("Eroare: {}.".format(ve))
 
 
 
-def uiModificaObiect(lista,undolist):
+def uiModificaObiect(lista,undolist,redolist):
     try:
         id = input("Dati id-ul prajiturii de modificat : ")
         nume = input("Dati noul nume: ")
@@ -54,17 +57,25 @@ def uiModificaObiect(lista,undolist):
         locatie = input("Dati noua locatie: ")
         rezultat = modificare_obiect(id, nume, descriere, pret, locatie,lista)
         undolist.append(lista)
+        redolist.clear()
         return rezultat
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return lista
 
 
-def uiChangeLocation(lista,undolist):
-    locatie_noua = input("Dati locatia noua: ")
-    rezultat = change_location(locatie_noua,lista)
-    undolist.append(lista)
-    return rezultat
+def uiChangeLocation(lista,undolist,redolist):
+    try:
+        locatie_noua = input("Dati locatia noua: ")
+        undolist.append(lista)
+        redolist.clear()
+        rezultat = change_location(locatie_noua,lista)
+        undolist.append(lista)
+        redolist.clear()
+        return rezultat
+    except ValueError as ve:
+        print("Eroare: {}.".format(ve))
+        return lista
 
 def uiMaxPrice(lista):
     rezultat = max_price(lista)
@@ -72,9 +83,10 @@ def uiMaxPrice(lista):
         print("Locatia {} are pretul maxim {}".format(locatie, rezultat[locatie]))
 
 
-def uiOrderingObjects(lista,undolist):
+def uiOrderingObjects(lista,undolist,redolist):
     rezultat = ordering_objects(lista)
     undolist.append(lista)
+    redolist.clear()
     showAll(rezultat)
 
 
@@ -91,50 +103,81 @@ def uiSumPrices(lista):
         print("Locatia {} are suma de preturi:{}".format(locatie,rezultat[locatie]))
 
 
-def uiConcatenationStr(lista,undolist):
+def uiConcatenationStr(lista,undolist,redolist):
         add_string = str(input("Dati stringul: "))
         pret = float(input("Dati valoarea: "))
         rezultat=concatenation_str(pret,add_string,lista)
         undolist.append(lista)
+        redolist.clear()
         showAll(rezultat)
+
+def ui_undo(lista, undolist, redolist):
+    """
+    Face undo
+    :param lista: lista careia vrem sa-i facem undo
+    :param undolist: lista pentru undo
+    :param redolist: lista pentru redo
+    :return: undo la lista
+    """
+    if len(undolist) > 0:
+        redolist.append(lista)
+        return undolist.pop()
+    return lista
+
+
+def ui_redo(lista, undolist, redolist):
+    """
+    Face redo la o comanda data.
+    :param lista: Lista de obiecte
+    :param undolist: Lista pentru undo
+    :param redolist: Lista pentru redo
+    :return: Redo la lista.
+    """
+    if len(redolist) > 0:
+        undolist.append(lista)
+        return redolist.pop()
+    return lista
+
+
 
 
 
 def runMenu(lista):
     undolist = []
+    redolist = []
     while True:
         printmenu()
         optiune = input ("Dati optiunea: ")
         if optiune == "1":
 
-            lista = uiAdaugaObiect(lista,undolist)
+            lista = uiAdaugaObiect(lista,undolist,redolist)
 
         elif optiune == "2":
-            lista = uiStergereObiect(lista,undolist)
+            lista = uiStergereObiect(lista,undolist,redolist)
 
         elif optiune == "3":
-            lista = uiModificaObiect(lista,undolist)
+            lista = uiModificaObiect(lista,undolist,redolist)
 
         elif optiune == "4":
-            lista = uiChangeLocation(lista,undolist)
+            lista = uiChangeLocation(lista,undolist,redolist)
 
         elif optiune == "5":
             uiMaxPrice(lista)
 
         elif optiune == "6":
-            uiOrderingObjects(lista)
+            uiOrderingObjects(lista,undolist,redolist)
 
         elif optiune == "7":
             uiSumPrices(lista)
 
         elif optiune == "8":
-            uiConcatenationStr(lista,undolist)
+            uiConcatenationStr(lista,undolist,redolist)
 
         elif optiune == "u":
-            if len(undolist) > 0:
-                lista = undolist.pop()
-            else:
-                print("Nu se poate face undo!")
+            lista=ui_undo(lista,undolist,redolist)
+
+        elif optiune == "r":
+            lista=ui_redo(lista,undolist,redolist)
 
 
         elif optiune == "y":

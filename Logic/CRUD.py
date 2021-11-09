@@ -1,7 +1,7 @@
 from Domain.Obiecte import get_id, creeaza_obiect
 
 
-def adauga_obiect (id, nume, descriere, pret, locatie,lista):
+def adauga_obiect (id, nume, descriere, pret, locatie,lista,undolist = [],redolist= []):
     '''
 Adauga obiect intr-o lista
     :param id: string
@@ -16,7 +16,13 @@ Adauga obiect intr-o lista
         raise ValueError("Id-ul exista deja!")
     if len(locatie) != 4:
         raise ValueError("Locatia nu contine exact 4 caractere!")
+    if undolist is not None and redolist is not None:
+        undolist.append(lista)
+        redolist.clear()
     obiect=creeaza_obiect(id, nume, descriere, pret, locatie)
+
+
+
     return lista + [obiect]
 
 def stergere_obiect (id,lista):

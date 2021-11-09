@@ -63,7 +63,7 @@ def sum_prices (lista):
 def concatenation_str(pret,add_string,lista):
     '''
     Concateneaza un string citit la toate descrierile obiectelor cu prețul mai mare decât o valoare citită.
-    :param add_descriere: stringul adaugat la finalul fiecarei descriere
+    :param add_string: stringul adaugat la finalul fiecarei descriere
     :param pret:float
     :param lista:lista de obiecte
     :return: Returneaza lista de obiecte cu stringul modificat

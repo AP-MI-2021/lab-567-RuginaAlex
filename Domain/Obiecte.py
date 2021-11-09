@@ -49,6 +49,11 @@ def get_locatie(obiect):
 
 
 def to_string(obiect):
-    return f"Obiectul cu id: {get_id(obiect)}, cu numele de: {get_nume(obiect)}, cu descrierea: {get_descriere(obiect)}, " \
-           f"care costa :{get_pret(obiect)}, si se gaseste in locatia: {get_locatie(obiect)}"
+    return "Id: {}, Nume: {}, Descriere: {}, Pret: {}, Locatie: {}".format(
+        get_id(obiect),
+        get_nume(obiect),
+        get_descriere(obiect),
+        get_pret(obiect),
+        get_locatie(obiect)
+    )
 
