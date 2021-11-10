@@ -1,5 +1,5 @@
-from Domain.Obiecte import get_locatie, get_pret, get_id, get_nume, get_descriere, creeaza_obiect
-
+from Domain.Obiecte import get_locatie, get_pret, get_id, get_nume, get_descriere
+from Logic.CRUD import modificare_obiect
 
 
 def change_location(locatie_noua,lista):
@@ -10,11 +10,17 @@ def change_location(locatie_noua,lista):
     :return: Returneaza o lista cu obiectele mutate intr-o locatie precizata de user
     '''
 
+    rezultat = lista[:]
     for obiect in lista:
-        if get_locatie(obiect) != locatie_noua:
-            obiect["locatie"] = locatie_noua
-
-    return lista
+        if len(locatie_noua) != 4:
+            raise ValueError("Locatia nu are exact 4 caractere")
+        if not rezultat:
+            rezultat = modificare_obiect(get_id(obiect), get_nume(obiect), get_descriere(obiect),
+                                              get_pret(obiect), locatie_noua,rezultat)
+        else:
+            rezultat = modificare_obiect(get_id(obiect), get_nume(obiect), get_descriere(obiect),
+                                              get_pret(obiect), locatie_noua, rezultat)
+    return rezultat
 
 
 def max_price(lista):
@@ -68,12 +74,15 @@ def concatenation_str(pret,add_string,lista):
     :param lista:lista de obiecte
     :return: Returneaza lista de obiecte cu stringul modificat
     '''
-
-    rezultat = []
+    rezultat = lista[:]
     for obiect in lista:
-        if pret < get_pret(obiect):
-            rezultat.append(creeaza_obiect(get_id(obiect), get_nume(obiect),
-                                       get_descriere(obiect) + add_string, get_pret(obiect), get_locatie(obiect)))
+        if get_pret(obiect) > pret:
+            rezultat = modificare_obiect(get_id(obiect), get_nume(obiect),
+                                              get_descriere(obiect) + add_string, get_pret(obiect),
+                                              get_locatie(obiect), rezultat)
         else:
-            rezultat.append(obiect)
+            rezultat = modificare_obiect(get_id(obiect), get_nume(obiect), get_descriere(obiect),
+                                              get_pret(obiect), get_locatie(obiect), rezultat)
+
+
     return rezultat

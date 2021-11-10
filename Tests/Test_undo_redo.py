@@ -1,6 +1,5 @@
-
 from Logic.CRUD import adauga_obiect, getBYId
-from Logic.Fonctionalitati import change_location
+from Logic.Fonctionalitati import change_location, ordering_objects, concatenation_str
 from UI.console import ui_undo, ui_redo
 
 
@@ -114,6 +113,79 @@ def test_undo_redo ():
     assert getBYId(4, lista) is not None
     assert getBYId(2, lista) is None
     assert getBYId(3, lista) is None
+
+
+def test_change_location_undo_redo():
+    lista= []
+    undolist = []
+    redolist = []
+
+
+    lista = adauga_obiect(1, "o4", "d4", 4, "loc4", lista, undolist, redolist)
+    undolist.append(lista)
+    redolist.clear()
+    lista=change_location("loc3",lista)
+    assert lista == [{'id': 1, 'nume': 'o4', 'descriere': 'd4', 'pret': 4, 'locatie': 'loc3'}]
+    lista= ui_undo(lista, undolist, redolist)
+    assert lista == [{'id': 1, 'nume': 'o4', 'descriere': 'd4', 'pret': 4, 'locatie': 'loc4'}]
+    lista= ui_redo(lista, undolist, redolist)
+    assert lista == [{'id': 1, 'nume': 'o4', 'descriere': 'd4', 'pret': 4, 'locatie': 'loc3'}]
+
+
+def test_ordering_undo_redo ():
+    lista = []
+    undolist = []
+    redolist = []
+    lista = adauga_obiect(1, "o1", "d1", 3, "loc1", lista)
+    lista = adauga_obiect(2, "o2", "d2", 2, "loc1", lista)
+    lista = adauga_obiect(3, "o3", "d3", 1, "loc1", lista)
+    undolist.append(lista)
+    redolist.clear()
+    lista = ordering_objects(lista)
+    assert lista == [{'id': 3, 'nume': 'o3', 'descriere': 'd3', 'pret': 1, 'locatie': 'loc1'},
+                     {'id': 2, 'nume': 'o2', 'descriere': 'd2', 'pret': 2, 'locatie': 'loc1'},
+                     {'id': 1, 'nume': 'o1', 'descriere': 'd1', 'pret': 3, 'locatie': 'loc1'}]
+
+    lista =ui_undo(lista, undolist, redolist)
+    assert lista == [{'id': 1, 'nume': 'o1', 'descriere': 'd1', 'pret': 3, 'locatie': 'loc1'},
+                     {'id': 2, 'nume': 'o2', 'descriere': 'd2', 'pret': 2, 'locatie': 'loc1'},
+                     {'id': 3, 'nume': 'o3', 'descriere': 'd3', 'pret': 1, 'locatie': 'loc1'}]
+
+    lista = ui_redo(lista,undolist,redolist)
+
+    assert lista == [{'id': 3, 'nume': 'o3', 'descriere': 'd3', 'pret': 1, 'locatie': 'loc1'},
+                     {'id': 2, 'nume': 'o2', 'descriere': 'd2', 'pret': 2, 'locatie': 'loc1'},
+                     {'id': 1, 'nume': 'o1', 'descriere': 'd1', 'pret': 3, 'locatie': 'loc1'}]
+
+
+
+def test_concatenation_str_undo_redo ():
+    lista= []
+    undolist = []
+    redolist = []
+
+    lista = adauga_obiect(1, "o1", "d1", 3, "loc1", lista)
+    undolist.append(lista)
+    redolist.clear()
+
+    lista= concatenation_str(2,'adaugare',lista)
+    assert lista == [{'id': 1, 'nume': 'o1', 'descriere': 'd1adaugare', 'pret': 3, 'locatie': 'loc1'}]
+
+    lista = ui_undo(lista, undolist, redolist)
+    assert lista == [{'id': 1, 'nume': 'o1', 'descriere': 'd1', 'pret': 3, 'locatie': 'loc1'}]
+
+    lista = ui_redo(lista, undolist, redolist)
+
+    assert lista == [{'id': 1, 'nume': 'o1', 'descriere': 'd1adaugare', 'pret': 3, 'locatie': 'loc1'}]
+
+
+
+
+
+
+
+
+
 
 
 

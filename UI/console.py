@@ -64,11 +64,9 @@ def uiModificaObiect(lista,undolist,redolist):
         return lista
 
 
-def uiChangeLocation(lista,undolist,redolist):
+def uiChangeLocation(lista,undolist:list,redolist:list):
     try:
         locatie_noua = input("Dati locatia noua: ")
-        undolist.append(lista)
-        redolist.clear()
         rezultat = change_location(locatie_noua,lista)
         undolist.append(lista)
         redolist.clear()
@@ -87,7 +85,7 @@ def uiOrderingObjects(lista,undolist,redolist):
     rezultat = ordering_objects(lista)
     undolist.append(lista)
     redolist.clear()
-    showAll(rezultat)
+    return rezultat
 
 
 def showAll(lista):
@@ -104,12 +102,16 @@ def uiSumPrices(lista):
 
 
 def uiConcatenationStr(lista,undolist,redolist):
-        add_string = str(input("Dati stringul: "))
-        pret = float(input("Dati valoarea: "))
-        rezultat=concatenation_str(pret,add_string,lista)
+    try:
+        add_string = input("Dati descrierea care se va adauga: ")
+        pret = float(input("Dati pretul cu care se va compara: "))
+        concatenare=concatenation_str(pret,add_string, lista)
         undolist.append(lista)
         redolist.clear()
-        showAll(rezultat)
+        return concatenare
+    except ValueError as ve:
+        print("Eroare: {}".format(ve))
+        return lista
 
 def ui_undo(lista, undolist, redolist):
     """
@@ -165,13 +167,13 @@ def runMenu(lista):
             uiMaxPrice(lista)
 
         elif optiune == "6":
-            uiOrderingObjects(lista,undolist,redolist)
+           lista = uiOrderingObjects(lista,undolist,redolist)
 
         elif optiune == "7":
             uiSumPrices(lista)
 
         elif optiune == "8":
-            uiConcatenationStr(lista,undolist,redolist)
+            lista = uiConcatenationStr(lista,undolist,redolist)
 
         elif optiune == "u":
             lista=ui_undo(lista,undolist,redolist)

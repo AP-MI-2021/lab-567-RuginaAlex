@@ -16,6 +16,8 @@ Adauga obiect intr-o lista
         raise ValueError("Id-ul exista deja!")
     if len(locatie) != 4:
         raise ValueError("Locatia nu contine exact 4 caractere!")
+    if pret < 0:
+        raise ValueError("Locatia nu poate fi negativa!")
     if undolist is not None and redolist is not None:
         undolist.append(lista)
         redolist.clear()
@@ -51,6 +53,8 @@ def modificare_obiect (id, nume, descriere, pret, locatie, lista):
 
     if getBYId(id,lista) is None:
         raise ValueError("Nu exista obiect cu acest ID!")
+
+
 
     lista_noua = []
     for obiect in lista:
